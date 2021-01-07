@@ -11,7 +11,7 @@ class ApiService {
   }
   
 
-  deletecontnet(bno){
+  deletecontent(bno){
     return axios.delete(USER_API_BASE_URL1 + '/' + bno);
   }
   

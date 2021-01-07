@@ -47,11 +47,10 @@ class read extends Component{
         this.props.history.push('/update?bno='+bno);
       }
       remove = (bno) => {
-        ApiService.deleteUser(bno)
+        ApiService.deletecontent(bno)
         document.location.href = "/"
       }
       list = () => {
-        window.localStorage.removeItem("bno");
         this.props.history.push('/');
       }
     

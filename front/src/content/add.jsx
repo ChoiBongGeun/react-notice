@@ -54,16 +54,13 @@ class add extends Component{
         <Typography variant="h4" style={style}>Add content</Typography>
         <form style={formContainer}>
          
-            <TextField type="text" placeholder="please input your title" name="title" 
-fullWidth margin="normal" value={this.state.title} onChange={this.onChange} />
+            <TextField type="text" placeholder="please input your title" name="title" fullWidth margin="normal" value={this.state.title} onChange={this.onChange} />
 
-            <TextField placeholder="please input your content" name="content" 
-fullWidth margin="normal" value={this.state.content} onChange={this.onChange} />
+            <TextField placeholder="please input your content" name="content" fullWidth margin="normal" value={this.state.content} onChange={this.onChange} />
 
-            <TextField placeholder="please input your writer" name="writer" 
-fullWidth margin="normal" value={this.state.writer} onChange={this.onChange} />
+            <TextField placeholder="please input your writer" name="writer" fullWidth margin="normal" value={this.state.writer} onChange={this.onChange} />
 
-          <Button variant="contained" color="primary" onClick={this.savecontent}>Save</Button>
+          <Button variant="contained" color="primary" onClick={this.savecontent}>저장</Button>
 
         </form>
       </div>
