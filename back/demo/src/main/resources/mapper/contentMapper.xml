@@ -27,7 +27,7 @@
         WHERE bno = #{bno}
     </delete>
     <update id="update">
-        update ex1 set title =#{title}, content =#{content}
+        update ex1 set title =#{title}, content =#{content},regdate = #{regdate}
         where bno = #{bno}
     </update>
 

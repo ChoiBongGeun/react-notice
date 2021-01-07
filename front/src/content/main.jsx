@@ -8,27 +8,32 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-
-class UserListComponent extends Component{
+import ReactPaginate from 'react-paginate';
+class main extends Component{
 
   constructor(props){
     super(props);
 
     this.state = {
-      users: [],
+      totalRecords :'',
+      contents: [],
+      content:[],
       message: null
     }
   }
 
   componentDidMount(){
-    this.reloadUserList();
+    this.reloadcontentList();
   }
-
-  reloadUserList = () => {
-    ApiService.fetchUsers()
+ 
+  reloadcontentList = () => {
+    ApiService.fetchcontents()
       .then( res => {
         this.setState({
-          users: res.data
+           
+          contents: res.data,
+          totalRecords :res.data.length,
+          content:res.data.slice(0,5)
         })
       })
       .catch(err => {
@@ -36,45 +41,63 @@ class UserListComponent extends Component{
       })
   }
 
-  readcontent  = (bno) => {
-    window.localStorage.setItem("bno", bno);
-    this.props.history.push('/read/'+bno);
+  readcontent = (bno) => {
+    this.props.history.push('/read?bno='+bno);
   }
 
-  addUser = () => {
+  addcontent = () => {
     this.props.history.push('/add');
   }
+  changePage= ({ selected: selectedPage }) => {
+      this.setState({
+        content:this.state.contents.slice(selectedPage*5,selectedPage*5+5)
+      })
+  }
+
 
   render(){
 
     return(
       <div>
-        <Typography variant="h4" style={style}>content List</Typography>
+        <Typography variant="h4" style={style}>게시판</Typography>
 
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Title</TableCell>
+              <TableCell align="center">Title</TableCell>
               <TableCell align="right">writer</TableCell>
               <TableCell align="right">regdate</TableCell>
               
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.users.map( user => 
-              <TableRow key={user.bno}>
-                <TableCell component="th" scope="user" onClick={()=> this.readcontent(user.bno)}>{user.title}</TableCell>
-                <TableCell align="right">{user.writer}</TableCell>
-                <TableCell align="right">{user.regdate}</TableCell>
+            {this.state.content.map( content => 
+              <TableRow key={content.bno}>
+                <TableCell align="center" component="th" scope="user" onClick={()=> this.readcontent(content.bno)}>{content.title}</TableCell>
+                <TableCell align="right">{content.writer}</TableCell>
+                <TableCell align="right">{content.regdate}</TableCell>
               </TableRow>
             )}
           </TableBody>
-        </Table>
-        <br></br>
-        <div align="right">
-        <Button variant="contained" color="primary" onClick={this.addUser}> Add User </Button>
-        </div>
+        </Table> 
+        <div algin="center">
+            <ReactPaginate
+                previousLabel={"← Previous"}
+                nextLabel={"Next →"}
+                pageCount={Math.ceil(this.state.totalRecords / 5)}
+                onPageChange={this.changePage}
+                containerClassName={"pagination"}
+                previousLinkClassName={"pagination__link"}
+                nextLinkClassName={"pagination__link"}
+                disabledClassName={"pagination__link--disabled"}
+                activeClassName={"pagination__link--active"}
+              />  
       </div>
+      <br></br>
+        <div align="right">
+        <Button variant="contained" color="primary" onClick={this.addcontent}> 글쓰기 </Button>
+        </div>
+    </div>
       
     );
     
@@ -87,4 +110,4 @@ const style = {
   justifyContent: 'center'
 }
 
-export default UserListComponent;
+export default main;

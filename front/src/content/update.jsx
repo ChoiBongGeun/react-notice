@@ -5,26 +5,27 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-class EditUserComponent extends Component{
+class update extends Component{
 
     constructor(props){
         super(props);
     
         this.state = {
-          bno: '',
+          bno: this.props.location.search.split("=")[1],
           title: '',
           content: '',
           writer: '',
           message: null
         }
       }
+  
 
   componentDidMount(){
-    this.reloadUser();
+    this.reloadcontent();
   }
 
-  reloadUser = () => {
-    ApiService.readcontent(window.localStorage.getItem("bno"))
+  reloadcontent = () => {
+    ApiService.readcontent(this.state.bno)
       .then( res => {
         let content = res.data;
         this.setState({
@@ -35,7 +36,7 @@ class EditUserComponent extends Component{
         })
       })
       .catch(err => {
-        console.log('reloadUserList() Error!', err);
+        console.log('reloadcontent() Error!', err);
       })
   }
 
@@ -45,7 +46,7 @@ class EditUserComponent extends Component{
     });
   }
 
-  saveUser = (e) => {
+  savecontent = (e) => {
     e.preventDefault();
 
     let content = {
@@ -55,7 +56,7 @@ class EditUserComponent extends Component{
         writer: this.state.writer
     }
 
-    ApiService.editUser(content)
+    ApiService.editcontent(content)
       .then( res => {
         this.setState({
           message : content.writer + '님 정보가 수정되었습니다.'
@@ -63,27 +64,32 @@ class EditUserComponent extends Component{
         this.props.history.push('/');
       })
       .catch(err => {
-        console.log('saveUser() 에러', err);
+        console.log('savecontent() 에러', err);
       })
   }
+  list = () => {
+    window.localStorage.removeItem("bno");
+    this.props.history.push('/');
+  }
+
 
   render(){
     return(
       <div>
         <Typography variant="h4" style={style}>Edit content</Typography>
         <form>
-        <TextField type="text" placeholder="please input your title" name="title" 
-fullWidth margin="normal" value={this.state.title} onChange={this.onChange} />
+        <TextField type="text" placeholder="please input your title" name="title" fullWidth margin="normal" value={this.state.title} onChange={this.onChange} />
 
-            <TextField type="text" placeholder="please input your content" name="content" 
-fullWidth margin="normal" value={this.state.content} onChange={this.onChange} />
+            <TextField type="text" placeholder="please input your content" name="content" fullWidth margin="normal" value={this.state.content} onChange={this.onChange} />
 
-            <TextField type="text" readOnly={true} placeholder="please input your writer" name="writer" 
-fullWidth margin="normal" value={this.state.writer} disabled />
+            <TextField type="text" readOnly={true} placeholder="please input your writer" name="writer" fullWidth margin="normal" value={this.state.writer} disabled />
 
-          <Button variant="contained" color="primary" onClick={this.saveUser}>Save</Button>
 
         </form>
+        <div align="right">
+          <Button variant="contained" color="primary" onClick={this.savecontent}>저장</Button>
+          <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
+        </div>
       </div>
     );
   }
@@ -94,4 +100,4 @@ const style = {
   justifyContent: 'center'
 }
 
-export default EditUserComponent;
+export default update;

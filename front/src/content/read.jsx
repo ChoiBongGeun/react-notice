@@ -7,13 +7,13 @@ import Button from '@material-ui/core/Button'
 import { TextField } from '@material-ui/core';
 
 
-class UserListComponent extends Component{
+class read extends Component{
 
     constructor(props){
         super(props);
     
         this.state = {
-          bno: '',
+          bno: this.props.location.search.split("=")[1],
           title: '',
           content: '',
           writer: '',
@@ -24,9 +24,10 @@ class UserListComponent extends Component{
       componentDidMount(){
         this.reloadUserList();
       }
-    
+  
+     
       reloadUserList = () => {
-        ApiService.readcontent(window.localStorage.getItem("bno"))
+        ApiService.readcontent(this.state.bno)
           .then( res => {
             let content = res.data;
             this.setState({
@@ -42,8 +43,8 @@ class UserListComponent extends Component{
       }
   
     
-      modify = () => {
-        this.props.history.push('/update');
+      modify = (bno) => {
+        this.props.history.push('/update?bno='+bno);
       }
       remove = (bno) => {
         ApiService.deleteUser(bno)
@@ -67,7 +68,7 @@ class UserListComponent extends Component{
 
         </form>
         <div align="right">
-          <Button variant="contained" color="primary" onClick={this.modify}>수정</Button>
+          <Button variant="contained" color="primary" onClick={()=> this.modify(this.state.bno)}>수정</Button>
           <Button variant="contained" color="primary"onClick={()=> this.remove(this.state.bno)}>삭제</Button>
           <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
         </div>
@@ -79,4 +80,4 @@ class UserListComponent extends Component{
 }
 
 
-export default UserListComponent;
+export default read;

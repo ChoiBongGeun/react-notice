@@ -1,6 +1,7 @@
 import React from 'react';
 import AppRouter from './route/RouterComponent';
 import NavBar from "./route/NavBar";
+import './styles.css';
 
 import Container from '@material-ui/core/Container';
 

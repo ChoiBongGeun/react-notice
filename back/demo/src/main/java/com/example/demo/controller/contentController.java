@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class contentController{
     @GetMapping
     public List<contentVO> contentList(){
         System.out.println(contentMapper.contentList());
-        System.out.println("유저리스트 출력 성공");
+        System.out.println("게시판 목록 출력 성공");
         return contentMapper.contentList();
     }
     @GetMapping("/read/{bno}")
@@ -31,23 +33,26 @@ public class contentController{
 
     }
     @PostMapping
-    void insertUser(@RequestBody contentVO user) {
-        contentMapper.create(user);
-        System.out.println("유저 DB 저장 성공");
+    void insertUser(@RequestBody contentVO content) {
+        contentMapper.create(content);
+        System.out.println("글 저장 성공");
     }
     @PutMapping("/{bno}")
     public void updatecontent(@PathVariable int bno, @RequestBody  contentVO content) {
 
         contentVO updatecontent= content;
-        System.out.println("업데이트유저 => " + updatecontent);
+        System.out.println("글 업데이트 => " + updatecontent);
 
         updatecontent.setTitle(content.getTitle());
         updatecontent.setContent(content.getContent());
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        updatecontent.setRegdate(date.format(today));
         contentMapper.update(updatecontent);
     }
     @DeleteMapping("/{bno}")
     public void delete(@PathVariable int bno) {
         contentMapper.delete(bno);
-        System.out.println("유저 삭제, 성공적");
+        System.out.println("글삭제");
     }
 }
