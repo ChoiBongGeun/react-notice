@@ -10,7 +10,8 @@ public interface contentMapper {
 
     List<contentVO> contentList();
     contentVO contentread(int bno);
-    void create(contentVO user);
+    List<contentVO> mycontent(String write);
+    void create(contentVO content);
     void delete(int bno);
     void update(contentVO content);
 

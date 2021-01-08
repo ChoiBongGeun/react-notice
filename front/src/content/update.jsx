@@ -21,7 +21,13 @@ class update extends Component{
   
 
   componentDidMount(){
+    if(!window.sessionStorage.getItem("id")){
+      document.location.href = "/";
+      alert("잘못된 접근")
+    }
+    else{
     this.reloadcontent();
+    }
   }
 
   reloadcontent = () => {
@@ -61,15 +67,14 @@ class update extends Component{
         this.setState({
           message : content.writer + '님 정보가 수정되었습니다.'
         })
-        this.props.history.push('/');
+        this.props.history.push('/main');
       })
       .catch(err => {
         console.log('savecontent() 에러', err);
       })
   }
   list = () => {
-    window.localStorage.removeItem("bno");
-    this.props.history.push('/');
+    this.props.history.push('/main');
   }
 
 

@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ReactPaginate from 'react-paginate';
-class main extends Component{
+class mycontent extends Component{
 
   constructor(props){
     super(props);
@@ -33,7 +33,7 @@ class main extends Component{
   }
  
   reloadcontentList = () => {
-    ApiService.fetchcontents()
+    ApiService.mycontents(window.sessionStorage.getItem("id"))
       .then( res => {
         this.setState({
            
@@ -116,4 +116,4 @@ const style = {
   justifyContent: 'center'
 }
 
-export default main;
+export default mycontent;

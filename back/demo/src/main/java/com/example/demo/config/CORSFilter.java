@@ -19,7 +19,7 @@ public class CORSFilter implements Filter{
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
 
-        System.out.println("필터링이 진행중입니다..."); //Console창에서 거슬린다면 주석처리 하셔도 됩니다!
+        System.out.println("필터링이 진행중입니다...");
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");

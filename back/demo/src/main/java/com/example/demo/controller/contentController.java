@@ -18,6 +18,13 @@ public class contentController{
     @Autowired
     contentMapper contentMapper;
 
+    @GetMapping("/{write}")
+    public List<contentVO> mycontent(@PathVariable String write){
+        System.out.println(contentMapper.mycontent(write));
+        System.out.println("my게시판 목록 출력 성공");
+        return contentMapper.mycontent(write);
+    }
+
     @GetMapping
     public List<contentVO> contentList(){
         System.out.println(contentMapper.contentList());
@@ -25,10 +32,14 @@ public class contentController{
         return contentMapper.contentList();
     }
     @GetMapping("/read/{bno}")
-    public contentVO read(@PathVariable int bno) {
+    public Object read(@PathVariable int bno) {
         System.out.println(contentMapper.contentread(bno));
         System.out.println("bno 출력 성공");
         contentVO readcontent = contentMapper.contentread(bno);
+        if(readcontent ==null){
+            String message = "fail";
+            return message;
+        }
         return readcontent;
 
     }

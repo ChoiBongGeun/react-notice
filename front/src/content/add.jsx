@@ -13,10 +13,16 @@ class add extends Component{
     this.state = {
         title: '',
         content: '',
-        writer: '',
+        writer: window.sessionStorage.getItem('id'),
       message: null
     }
 
+  }
+  componentDidMount(){
+    if(!window.sessionStorage.getItem("id")){
+      document.location.href = "/";
+      alert("잘못된 접근")
+    }
   }
 
   onChange = (e) => {
@@ -40,7 +46,7 @@ class add extends Component{
           message: content.name + '님이 성공적으로 등록되었습니다.'
         })
         console.log(this.state.message);
-        this.props.history.push('/');
+        this.props.history.push('/main');
     })
     .catch( err => {
       console.log('saveUser() 에러', err);
@@ -58,7 +64,7 @@ class add extends Component{
 
             <TextField placeholder="please input your content" name="content" fullWidth margin="normal" value={this.state.content} onChange={this.onChange} />
 
-            <TextField placeholder="please input your writer" name="writer" fullWidth margin="normal" value={this.state.writer} onChange={this.onChange} />
+            <TextField placeholder="please input your writer" name="writer" fullWidth margin="normal" value={this.state.writer} disabled/>
 
           <Button variant="contained" color="primary" onClick={this.savecontent}>저장</Button>
 
@@ -74,7 +80,7 @@ const formContainer = {
 }
 
 const style = {
-  display: 'flex',
+  display: 'flex', 
   justifyContent: 'center'
 }
 

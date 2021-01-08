@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTDMapper3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.userMapper">
+    <insert id="adduser" >
+        insert into member (id, password, username,email)
+        values(#{id},#{password}, #{username},#{email})
+    </insert>
+    <select id="loginuser" resultType="com.example.demo.vo.userVO">
+        select
+            id, username,email
+        from
+            member
+        where id = #{id} and password = #{password}
+    </select>
+    <select id="checkuser" resultType="com.example.demo.vo.userVO">
+        select
+            *
+        from
+            member
+        where id = #{id}
+    </select>
+    <select id="forgotid" resultType="com.example.demo.vo.userVO">
+        select
+            id
+        from
+            member
+        where email = #{email} and username = #{username}
+    </select>
+
+    <select id="forgotpw" resultType="com.example.demo.vo.userVO">
+        select
+            password
+        from
+            member
+        where email = #{email} and username = #{username} and id = #{id}
+    </select>
+    <update id="updateuser" >
+        update member set email=#{email}
+        where id =#{id}
+    </update>
+    <update id="updatepw" >
+        update member set password = #{password}
+        where id =#{id}
+    </update>
+    <delete id="delete" parameterType="String">
+        DELETE FROM member
+        WHERE id = #{id}
+    </delete>
+</mapper>

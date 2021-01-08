@@ -22,13 +22,24 @@ class read extends Component{
       }
     
       componentDidMount(){
-        this.reloadUserList();
+        if(!window.sessionStorage.getItem("id")){
+          document.location.href = "/";
+          alert("잘못된 접근")
+        }
+        else{
+        this.reloadcontentList();
+        }
       }
   
      
-      reloadUserList = () => {
+      reloadcontentList = () => {
         ApiService.readcontent(this.state.bno)
           .then( res => {
+            if(res.data=="fail"){
+              alert("잘못된 접근입니다")
+              this.props.history.push('/main');
+            }
+            else{
             let content = res.data;
             this.setState({
                 bno: content.bno,
@@ -36,10 +47,12 @@ class read extends Component{
                 content: content.content,
                 writer: content.writer
             })
+          }
           })
           .catch(err => {
             console.log('reloadUserList() Error!', err);
           })
+          
       }
   
     
@@ -48,10 +61,10 @@ class read extends Component{
       }
       remove = (bno) => {
         ApiService.deletecontent(bno)
-        document.location.href = "/"
+        document.location.href = "/main"
       }
       list = () => {
-        this.props.history.push('/');
+        this.props.history.push('/main');
       }
     
   render(){
@@ -67,7 +80,9 @@ class read extends Component{
 
         </form>
         <div align="right">
-          <Button variant="contained" color="primary" onClick={()=> this.modify(this.state.bno)}>수정</Button>
+        {window.sessionStorage.getItem("id")==this.state.writer &&
+       <Button variant="contained" color="primary" onClick={()=> this.modify(this.state.bno)}>수정</Button>
+      }
           <Button variant="contained" color="primary"onClick={()=> this.remove(this.state.bno)}>삭제</Button>
           <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
         </div>
