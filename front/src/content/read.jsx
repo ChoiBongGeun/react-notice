@@ -79,11 +79,14 @@ class read extends Component{
             <TextField placeholder="Edit your last name" name="lastName" fullWidth margin="normal" value={this.state.writer} disabled />
 
         </form>
-        <div align="right">
         {window.sessionStorage.getItem("id")==this.state.writer &&
-       <Button variant="contained" color="primary" onClick={()=> this.modify(this.state.bno)}>수정</Button>
-      }
+        <div align="right">
+          <Button variant="contained" color="primary" onClick={()=> this.modify(this.state.bno)}>수정</Button>
           <Button variant="contained" color="primary"onClick={()=> this.remove(this.state.bno)}>삭제</Button>
+          <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
+        </div>
+       }
+        <div align="right">
           <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
         </div>
       </div>

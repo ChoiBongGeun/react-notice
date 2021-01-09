@@ -31,6 +31,7 @@ class adduser extends Component {
           alert("잘못된 접근")
         }
         else if(!window.sessionStorage.getItem("email")){
+            document.location.href = "/check";
             alert("잘못된 접근")
         }
         else{
