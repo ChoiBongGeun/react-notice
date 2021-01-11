@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import ApiService from "../ApiService";
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
-import { Face, Fingerprint,Email,AccountCircle} from '@material-ui/icons'
+import { Paper, withStyles, Grid, TextField, Button} from '@material-ui/core';
+import { Fingerprint} from '@material-ui/icons'
 const styles = theme => ({
     margin: {
         margin: theme.spacing.unit * 2,

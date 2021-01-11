@@ -86,9 +86,11 @@ class read extends Component{
           <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
         </div>
        }
+       {window.sessionStorage.getItem("id")!=this.state.writer &&
         <div align="right">
           <Button variant="contained" color="primary" onClick={this.list}>목록</Button>
         </div>
+  }
       </div>
     );
     

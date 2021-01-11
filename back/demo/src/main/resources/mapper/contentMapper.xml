@@ -21,7 +21,7 @@
     </select>
     <select id="contentread" parameterType="int" resultType="com.example.demo.vo.contentVO">
         select
-            bno, title, content, writer, regdate, viewcnt
+            bno, title, content, writer, regdate
         from
             ex1
         where bno = #{bno}

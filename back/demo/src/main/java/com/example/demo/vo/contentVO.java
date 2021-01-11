@@ -10,5 +10,4 @@ public class contentVO {
     String content;
     String writer;
     String regdate;
-    String viewcnt;
 }

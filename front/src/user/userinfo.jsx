@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import ApiService from "../ApiService";
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button} from '@material-ui/core';
 import { Face, Fingerprint,Email,AccountCircle} from '@material-ui/icons'
 import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
